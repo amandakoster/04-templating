@@ -12,11 +12,12 @@ function Article (rawDataObj) {
 }
 
 Article.prototype.toHtml = function() {
-  // TODO: Use handlebars to render your articles.
-  //       - Get your template from the DOM.
-  //       - Now "compile" your template with Handlebars.
-
   var template = $('#article-template').html();
+
+  if (!this.publishedOn) {
+    template.addClass('draft');
+  }
+
   var templateRender = Handlebars.compile(template);
 
   this.daysAgo = parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000);
